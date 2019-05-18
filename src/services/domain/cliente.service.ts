@@ -8,18 +8,11 @@ import { StorageService } from "../storage.service";
 export class ClienteService {
 
     constructor(public http: HttpClient, public storage: StorageService){
-
     }
 
     findByEmail(email : string) : Observable<ClienteDTO> {
-
-        let token = this.storage.getLocalUser().token;
-        let authHeader = new HttpHeaders({'Authorization':'Bearer '+ token});
-
-                                 
-        return this.http.get<ClienteDTO>(
-            'http://localhost:8080/clientes/email?value='+ email,
-           {'headers': authHeader});/** http://localhost:8080***${API_CONFIG.baseUrl}/.../**${email} */                          
+        return this.http.get<ClienteDTO>('http://localhost:8080/clientes/email?value='+ email);
+            /** http://localhost:8080***${API_CONFIG.baseUrl}/.../**${email} */                          
     }
 
     getImageFromBucket(id : string) : Observable<any> {

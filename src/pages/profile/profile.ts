@@ -34,11 +34,18 @@ export class ProfilePage {
      this.clienteService.findByEmail(localUser.email)
       .subscribe(response => {
         this.cliente = response;
-        //buscar imagem
         this.getImageIfExists();
       }, 
-        error => {});
+        error => {
+          if(error.status == 403){
+            this.navCtrl.setRoot('HomePage');
+          }
+        });
    }
+   else{
+    this.navCtrl.setRoot('HomePage');
+   }
+
   }
 
   getImageIfExists() {

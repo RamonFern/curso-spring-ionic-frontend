@@ -26,6 +26,18 @@ export class AuthService{
             });
     }
 
+    refreshToken(){
+
+        return this.http.post(
+            /** '${API_CONFIG.baseUrl}/login',*/
+            'http://localhost:8080/auth/refresh_token',
+            {},
+            {
+                observe: 'response',
+                responseType: 'text'
+            });
+    }
+
     successfulLogin(authorizationValue : string) {
         let tok = authorizationValue.substring(7);
         let user : LocalUser = {

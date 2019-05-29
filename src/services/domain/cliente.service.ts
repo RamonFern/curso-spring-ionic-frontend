@@ -20,7 +20,18 @@ export class ClienteService {
        // let ur = '${API_CONFIG.bucketBaseUrl}/cp${id}.jpg'
         let url = 'https://s3-sa-east-1.amazonaws.com/curso-spring-ionic-rvf/cp'+ id + '.jpg'
         return this.http.get(url, {responseType : 'blob'});
-
+    }
+ 
+    insert(obj : ClienteDTO) {
+        return this.http.post(
+            //'${API_CONFIG.baseUrl}/clientes',
+            'http://localhost:8080/clientes',
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        );
     }
 }
 

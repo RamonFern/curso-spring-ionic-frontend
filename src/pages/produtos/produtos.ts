@@ -38,8 +38,10 @@ export class ProdutosPage {
             item.imageUrl = 'https://s3-sa-east-1.amazonaws.com/curso-spring-ionic-rvf/prod'+ item.id + '-small.jpg'
           },
           error => {});
-
     }
+  }
 
+  showDetail() {
+    this.navCtrl.push("ProdutoDetailPage");
   }
 }

@@ -24,7 +24,22 @@ export class ProdutosPage {
     this.produtoService.findByCategoria(categoria_id)
       .subscribe(response => {
         this.items = response['content'];
+        this.loadImageUrls();
       },
       error => {});
+  }
+
+  loadImageUrls() {
+    for(var i=0; i<this.items.length; i++) {
+      let item = this.items[i];
+      this.produtoService.getSmallImageFromBucket(item.id)
+          .subscribe(response => {
+            //item.imageUrl = '${API_CONFIG.bucketBaseUrl}/prod${item.id}-small.jpg';
+            item.imageUrl = 'https://s3-sa-east-1.amazonaws.com/curso-spring-ionic-rvf/prod'+ item.id + '-small.jpg'
+          },
+          error => {});
+
+    }
+
   }
 }

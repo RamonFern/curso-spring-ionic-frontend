@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>ProdutoDetail</ion-title>
+    <ion-title>Produto Detalhe</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -17,7 +17,9 @@
       <p>
         {{item?.preco | currency}}
       </p>
+      
     </ion-card-content>
   </ion-card>
-  <button ion-button block outline>Adicionar ao carrinho</button>
+  <button ion-button block outline (click)="addToCart(item)">Adicionar ao carrinho</button>
+
 </ion-content>

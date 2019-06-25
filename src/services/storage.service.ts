@@ -23,7 +23,7 @@ export class StorageService {
 
     }
 
-    getCart(): Cart {
+    getCart() : Cart {
         let str = localStorage.getItem(STORAGE_KEYS.cart);
         if (str != null) {
             return JSON.parse(str);

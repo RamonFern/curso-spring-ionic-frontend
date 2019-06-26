@@ -5,6 +5,7 @@ import { LocalUser } from "../models/local_user";
 import { StorageService } from "./storage.service";
 import { JwtHelper } from 'angular2-jwt';
 import { CartService } from "./domain/cart.service";
+import { API_CONFIG } from "../config/api.config";
 
 @Injectable()
 export class AuthService{
@@ -21,8 +22,8 @@ export class AuthService{
     authenticate(creds: CredenciaisDTO){
 
         return this.http.post(
-            /** '${API_CONFIG.baseUrl}/login',*/
-            'http://localhost:8080/login',
+            `${API_CONFIG.baseUrl}/login`,
+            /*'http://localhost:8080/login',*/
             creds,
             {
                 observe: 'response',
@@ -33,8 +34,8 @@ export class AuthService{
     refreshToken(){
 
         return this.http.post(
-            /** '${API_CONFIG.baseUrl}/login',*/
-            'http://localhost:8080/auth/refresh_token',
+             `${API_CONFIG.baseUrl}/auth/refresh_token`,
+            /*'http://localhost:8080/auth/refresh_token',*/
             {},
             {
                 observe: 'response',

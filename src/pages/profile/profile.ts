@@ -3,13 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StorageService } from '../../services/storage.service';
 import { ClienteDTO } from '../../models/cliente.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
+import { API_CONFIG } from '../../config/api.config';
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -33,7 +28,7 @@ export class ProfilePage {
    if(localUser && localUser.email) {
      this.clienteService.findByEmail(localUser.email)
       .subscribe(response => {
-        this.cliente = response;
+        this.cliente = response as ClienteDTO;
         this.getImageIfExists();
       }, 
         error => {
@@ -51,8 +46,8 @@ export class ProfilePage {
   getImageIfExists() {
     this.clienteService.getImageFromBucket(this.cliente.id)
     .subscribe(response => {
-      this.cliente.imageUrl = 'https://s3-sa-east-1.amazonaws.com/curso-spring-ionic-rvf/cp'+ this.cliente.id + '.jpg';
-     // this.cliente.imageUrl = '${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg';
+     // this.cliente.imageUrl = 'https://s3-sa-east-1.amazonaws.com/curso-spring-ionic-rvf/cp'+ this.cliente.id + '.jpg';
+      this.cliente.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg`;
     }, 
     error => {});
   }

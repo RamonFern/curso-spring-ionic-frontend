@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EnderecoDTO } from '../../models/endereco.dto';
+import { StorageService } from '../../services/storage.service';
+import { ClienteService } from '../../services/domain/cliente.service';
 
 
 @IonicPage()
@@ -13,45 +15,29 @@ export class PickAddressPage {
 
   items: EnderecoDTO[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: StorageService,
+    public clienteService: ClienteService) {
   }
 
   ionViewDidLoad() {
-    this.items = [
-      {
-        id: "1",
-        logradouro: "rua Estefânio Saldanha",
-        numero: "3996",
-        complemento: "Bairro da Princesa",
-        bairro: "Centro",
-        cep: "65150-000",
-        cidade: {
-          id: "1",
-          nome: "Rosário",
-          estado: {
-            id: "1",
-            nome: "Maranhão"
+    let localUser = this.storage.getLocalUser();
+   if(localUser && localUser.email) {
+     this.clienteService.findByEmail(localUser.email)
+      .subscribe(response => {
+        this.items = response['enderecos'];
+      }, 
+        error => {
+          if(error.status == 403){
+            this.navCtrl.setRoot('HomePage');
           }
-        }
-      },
-      {
-        id: "2",
-        logradouro: "rua da mangabeira",
-        numero: "36",
-        complemento: "Paraisópolis",
-        bairro: "Coalho",
-        cep: "12211-928",
-        cidade: {
-          id: "2",
-          nome: "São Paulo",
-          estado: {
-            id: "2",
-            nome: "São Paulo"
-          }
-        }
-      }
-
-    ]
+        });
+   }
+   else{
+    this.navCtrl.setRoot('HomePage');
+   }
   }
 
 }

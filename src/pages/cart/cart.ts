@@ -5,7 +5,6 @@ import { ProdutoService } from '../../services/domain/produto.service';
 import { CartService } from '../../services/domain/cart.service';
 import { API_CONFIG } from '../../config/api.config';
 import { ProdutoDTO } from '../../models/produto.dto';
-//import { API_CONFIG } from '../../config/api.config';
 
 
 @IonicPage()
